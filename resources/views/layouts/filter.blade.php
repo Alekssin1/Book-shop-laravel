@@ -1,5 +1,5 @@
 
-                    <form method="get">
+                    <form action="{{ action([\App\Http\Controllers\PagesController::class, 'catalog']) }}" method="get">
                         @csrf
                         <div class="PublishHouse GroupName">
                             <div class="publish_house_menu">

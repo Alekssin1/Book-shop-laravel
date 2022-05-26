@@ -58,111 +58,44 @@
 
                 <div class="Page_section">
                     <h1>
-                        <?php
-                        if (isset($_GET['Section'])) {
-                            foreach ($_GET['Section'] as $word) {
-                                if (count($_GET['Section']) > 1){
-                                    echo $word . ',';
-                                }
-                                else {
-                                    echo $word;
-                                }
-                            }
-                        }
-                        else {
-                            echo "Каталог";
-                        }
-                        ?>
+                        @if(isset($finded_section))
+                            @foreach($finded_section as $word)
+                                @if(count($finded_section) > 1)
+                                    {{$word . ','}}
+                                @else
+                                    {{$word}}
+                                @endif
+                            @endforeach
+                        @else
+                            Каталог
+                        @endif
                     </h1>
                     <div class="row">
-                        <?php
-                        if (empty($_GET['PublishHouse']) and (empty($_GET['Price']) or intval($_GET['Price'][1]) == 0) and
-                            (empty($_GET['Language'])) and (empty($_GET['Section']))) {
-                            $raw_results = $conn->query("SELECT * FROM catalog3");
-
-                        }else {
-                        $lower_price = intval(htmlspecialchars($_GET['Price'][0]));
-                        $upper_price = intval(htmlspecialchars($_GET['Price'][1]));
-                        $sql = array('0');
-                        $sql_publish = array('0');
-                        $sql_language = array('0');
-                        $sql_section = array('0');
-                        if (isset($_GET['PublishHouse'])) {
-                            foreach ($_GET['PublishHouse'] as $word) {
-                                $sql_publish[] = 'publishing_house LIKE \'' . $word . '\'';
-                            }
-                        }
-                        if (isset($_GET['Language'])) {
-                            foreach ($_GET['Language'] as $word) {
-                                $sql_language[] = 'book_language LIKE \'' . $word . '\'';
-                            }
-                        }
-                        if (isset($_GET['Section'])) {
-                            foreach ($_GET['Section'] as $word) {
-                                $sql_section[] = 'book_genre LIKE \'' . $word . '\'';
-                            }
-                        }
-                        $sql_publish = implode(" OR ", $sql_publish);
-                        $sql_language = implode(" OR ", $sql_language);
-                        $sql_section = implode(" OR ", $sql_section);
-                        $publisher = strlen($sql_publish);
-                        $language = strlen($sql_language);
-                        $section = strlen($sql_section);
-                        $sql = 'SELECT * FROM catalog3 WHERE ';
-                            if ($publisher > 1 and ($language > 1 or $section > 1 or $upper_price > 1)) {
-                                $sql = $sql . '(' . $sql_publish . ") AND ";
-                            } else if ($publisher > 1) {
-                                $sql = $sql . $sql_publish;
-                            }
-                            if ($language > 1 and ($section > 1 or $upper_price > 1)) {
-                                $sql = $sql . '(' . $sql_language . ") AND ";
-                            } else if ($language > 1) {
-                                $sql = $sql . '(' . $sql_language . ')';
-                            }
-                            if ($section > 1 and ($upper_price > 1)) {
-                                $sql = $sql . '(' . $sql_section . ') AND ';
-                            } else if ($section > 1) {
-                                $sql = $sql . '(' . $sql_section . ')';
-                            }
-
-
-                            if ($upper_price > 1) {
-                                $sql = $sql . '(book_price BETWEEN ' . $lower_price . ' AND ' . $upper_price . ')';
-                            }
-                            $raw_results = $conn->query($sql);
-
-                        }
-                        if ($raw_results->num_rows > 0){
-                        while($results = $raw_results->fetch_array(MYSQLI_ASSOC)){
-                        $book_name = $results['book_name'];
-                        $book_author = $results['book_author']; ?>
-                        <div class="col">
-                            <a href="{{ action([\App\Http\Controllers\PagesController::class, 'info'],
-                                    ['name' => $book_name, 'author' => $book_author]) }}">
-                                <?php echo '<img src="data:image/png;base64,'
-                                    . base64_encode($results['book_image']) . '" alt="Andjey - witcher"/>'; ?>
-                            </a>
-                            <div class='second_need'>
-
-                        <span class="name"><?php echo $results['book_name'] ?><img src="./img/Vector.png"
-                                                                                   alt="heart"></span>
-                                <span class="author"><?php echo $results['book_author'] ?></span>
-                                <div class='cartcatalog'>
-                                    <span class="price"><?php echo $results['book_price']?>₴</span>
-                                    <a href="#!" class="add_to_cart">
-                                        <img src="./img/svg/Catalog_cart.svg" alt="cartcatalog">
+                        @if(count($finded_books))
+                            @foreach($finded_books as $finded_book)
+                                <div class="col">
+                                    <a href="{{ action([\App\Http\Controllers\PagesController::class, 'info'],
+                                    ['name' => $finded_book->book_name, 'author' => $finded_book->full_name]) }}">
+                                        <img src="data:image/png;base64,{!! base64_encode($finded_book->book_image) !!}" alt="Andjey - witcher"/>
                                     </a>
-                                    <a href="#!" class="add_to_cart-mobile">
-                                        <img src="./img/Cart.png" alt="cartcatalog">
-                                    </a>
+                                    <div class='second_need'>
+
+                        <span class="name">{{$finded_book->book_name}}<img src="./img/Vector.png"
+                                                                           alt="heart"></span>
+                                        <span class="author">{{$finded_book->full_name}}</span>
+                                        <div class='cartcatalog'>
+                                            <span class="price">{{$finded_book->book_price}}₴</span>
+                                            <a href="#!" class="add_to_cart">
+                                                <img src="./img/svg/Catalog_cart.svg" alt="cartcatalog">
+                                            </a>
+                                            <a href="#!" class="add_to_cart-mobile">
+                                                <img src="./img/Cart.png" alt="cartcatalog">
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    <?php }
-                        }
-
-                        ?>
-
+                            @endforeach
+                        @endif
 
                     </div>
                 </div>
