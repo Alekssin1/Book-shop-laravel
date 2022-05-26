@@ -57,10 +57,82 @@
                 </div>
 
                 <div class="Page_section">
-                    <h1>Художня література</h1>
+                    <h1>
+                        <?php
+                        if (isset($_GET['Section'])) {
+                            foreach ($_GET['Section'] as $word) {
+                                if (count($_GET['Section']) > 1){
+                                    echo $word . ',';
+                                }
+                                else {
+                                    echo $word;
+                                }
+                            }
+                        }
+                        else {
+                            echo "Каталог";
+                        }
+                        ?>
+                    </h1>
                     <div class="row">
                         <?php
-                        $raw_results = $conn->query("SELECT * FROM catalog3 ");
+                        if (empty($_GET['PublishHouse']) and (empty($_GET['Price']) or intval($_GET['Price'][1]) == 0) and
+                            (empty($_GET['Language'])) and (empty($_GET['Section']))) {
+                            $raw_results = $conn->query("SELECT * FROM catalog3");
+
+                        }else {
+                        $lower_price = intval(htmlspecialchars($_GET['Price'][0]));
+                        $upper_price = intval(htmlspecialchars($_GET['Price'][1]));
+                        $sql = array('0');
+                        $sql_publish = array('0');
+                        $sql_language = array('0');
+                        $sql_section = array('0');
+                        if (isset($_GET['PublishHouse'])) {
+                            foreach ($_GET['PublishHouse'] as $word) {
+                                $sql_publish[] = 'publishing_house LIKE \'' . $word . '\'';
+                            }
+                        }
+                        if (isset($_GET['Language'])) {
+                            foreach ($_GET['Language'] as $word) {
+                                $sql_language[] = 'book_language LIKE \'' . $word . '\'';
+                            }
+                        }
+                        if (isset($_GET['Section'])) {
+                            foreach ($_GET['Section'] as $word) {
+                                $sql_section[] = 'book_genre LIKE \'' . $word . '\'';
+                            }
+                        }
+                        $sql_publish = implode(" OR ", $sql_publish);
+                        $sql_language = implode(" OR ", $sql_language);
+                        $sql_section = implode(" OR ", $sql_section);
+                        $publisher = strlen($sql_publish);
+                        $language = strlen($sql_language);
+                        $section = strlen($sql_section);
+                        $sql = 'SELECT * FROM catalog3 WHERE ';
+                            if ($publisher > 1 and ($language > 1 or $section > 1 or $upper_price > 1)) {
+                                $sql = $sql . '(' . $sql_publish . ") AND ";
+                            } else if ($publisher > 1) {
+                                $sql = $sql . $sql_publish;
+                            }
+                            if ($language > 1 and ($section > 1 or $upper_price > 1)) {
+                                $sql = $sql . '(' . $sql_language . ") AND ";
+                            } else if ($language > 1) {
+                                $sql = $sql . '(' . $sql_language . ')';
+                            }
+                            if ($section > 1 and ($upper_price > 1)) {
+                                $sql = $sql . '(' . $sql_section . ') AND ';
+                            } else if ($section > 1) {
+                                $sql = $sql . '(' . $sql_section . ')';
+                            }
+
+
+                            if ($upper_price > 1) {
+                                $sql = $sql . '(book_price BETWEEN ' . $lower_price . ' AND ' . $upper_price . ')';
+                            }
+                            $raw_results = $conn->query($sql);
+
+                        }
+                        if ($raw_results->num_rows > 0){
                         while($results = $raw_results->fetch_array(MYSQLI_ASSOC)){
                         $book_name = $results['book_name'];
                         $book_author = $results['book_author']; ?>
@@ -86,11 +158,14 @@
                                 </div>
                             </div>
                         </div>
-                        <?php }
+                    <?php }
+                        }
+
                         ?>
+
+
                     </div>
                 </div>
-
             </div>
             <div class="Pages">
                 <a href="#" id="Active">1</a>

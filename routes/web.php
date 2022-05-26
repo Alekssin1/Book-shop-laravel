@@ -30,5 +30,7 @@ Route::post('/register/', [PagesController::class,'register']);
 
 Route::post('/welcome/', [PagesController::class,'index'])->name("index");
 
+Route::get('/aboba/', 'CatalogController@how');
+
 
 

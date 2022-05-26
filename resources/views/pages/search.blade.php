@@ -41,7 +41,7 @@
                 $raw_results = $conn->query("SELECT * FROM catalog3
                             WHERE (`book_name` LIKE '%" . $query . "%') OR (`book_author` LIKE '%" . $query . "%') ");
                 if ($raw_results->num_rows > 0) {
-                    while ($results = $raw_results->fetch_array(MYSQLI_ASSOC) and $index < 15) {
+                    while ($results = $raw_results->fetch_array(MYSQLI_ASSOC)) {
                         $book_name = $results['book_name'];
                         $book_author = $results['book_author']; ?>
                         <div class="col">

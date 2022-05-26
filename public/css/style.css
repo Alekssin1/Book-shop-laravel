@@ -2811,6 +2811,9 @@ input[type="checkbox"]:disabled+label::before {
         margin-left:0;
     }
 }
+.Page_section{
+    width: 80%;
+}
 
 .Page_section .row {
     width: 100%;
@@ -2935,6 +2938,9 @@ input[type="checkbox"]:disabled+label::before {
         display: none;
     }
 
+    .Page_section{
+        width: 100%;
+    }
     .Page_section .row {
         margin: 0;
     }

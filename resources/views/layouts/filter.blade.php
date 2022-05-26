@@ -88,12 +88,9 @@
                             <?php
                             $lower_price = 0;
                             $upper_price = 0;
+
                             if (!empty($_GET['Price'])) {
                                 $prices = array($_GET['Price']);
-                                if (count($prices) > 2) {
-                                    $lower_price = intval(htmlspecialchars($_GET['Price'][0]));
-                                    $upper_price = intval(htmlspecialchars($_GET['Price'][1]));
-                                }
                             }
 
                             ?>
@@ -102,7 +99,8 @@
                                     <div class="Enter">
                                         <input aria-label="price-from" class="input-text from" id="price_input_from"
                                                name="Price[]" type="text" pattern="[0-9]*\.?[0-9]*"
-                                               placeholder="Від" value="<?php echo $lower_price; ?>">
+                                               placeholder="Від" value="<?php if (isset($prices)){foreach ($prices as $price){
+                                        echo $price[0];}}  ?>">
                                     </div>
                                     <div>
                                         <span class="control-label">-</span>
@@ -110,12 +108,11 @@
                                     <div class="Enter">
                                         <input aria-label="price-to" class="input-text to" id="price_input_to"
                                                name="Price[]" type="text"
-                                               pattern="[0-9]*\.?[0-9]*" placeholder="До" value="<?php echo $upper_price; ?>">
+                                               pattern="[0-9]*\.?[0-9]*" placeholder="До" value="<?php if (isset($prices)){foreach ($prices as $price){
+                                        echo $price[1];}}  ?>">
                                     </div>
                                     <div class="commit-button">
-                                        <a href="#" class="button-link">
-                                            <img src="./img/svg/Button.svg" alt="comit-button" class="button">
-                                        </a>
+                                        <input type="submit" value="OK">
                                     </div>
                                 </div>
                             </div>
@@ -207,7 +204,7 @@
                                 <div class="Option">
                                     <input type="checkbox" id="author-option1" class="checkbox"
                                            name="Section[]" onchange="this.form.submit()"
-                                           value="Художня літаратура"
+                                           value="Художня література"
                                     <?php if (!empty($_GET['Section']) and in_array("Художня література", $_GET['Section'])) echo "checked"; ?> ><label
                                         for="author-option1">Художня література</label>
                                 </div>
