@@ -23,6 +23,8 @@ Route::get('/catalog/{author}/{name}', [PagesController::class, 'info'] );
 
 Route::get('/search/', [PagesController::class,'search']);
 
+Route::get('/catalog/{author}/{name}/characteristic', [PagesController::class,'characteristic']);
+
 Route::get('/login/', [PagesController::class,'login']);
 
 Route::get('/register/', [PagesController::class,'register']);

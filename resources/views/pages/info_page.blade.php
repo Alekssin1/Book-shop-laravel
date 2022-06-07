@@ -8,16 +8,6 @@
     <title>{{$book_name}}</title>
 @endsection
 @section('content')
-    <?php
-    $conn = new mysqli("127.0.0.1", "root", "root", "books", 3309);
-    // Check connection
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
-    $conn->select_db("books");
-    $result = $conn->query("SELECT DATABASE()");
-    $row = $result->fetch_row();
-    ?>
 
 
 @include("layouts.header")
@@ -30,10 +20,12 @@
                 {{ $book_name }}  - {{ $book_author }}
             </h1>
             <div class="Categories">
-                <a href="#!" class="Main Category">
+                <a href="{{ action([\App\Http\Controllers\PagesController::class, 'info'],
+                                    ['name' => $book_name, 'author' => $book_author]) }}" class="Main Category">
                     Усе про книгу
                 </a>
-                <a href="#!" class="Characteristics Category">
+                <a href="{{ action([\App\Http\Controllers\PagesController::class, 'characteristic'],
+                                    ['name' => $book_name, 'author' => $book_author]) }}" class="Characteristics Category">
                     Характеристики
                 </a>
                 <a href="#!" class="Reviews Category">
@@ -42,27 +34,20 @@
                 <a href="#!" class="AboutAuthor Category">
                     Про автора
                 </a>
-                <a href="#!" class="OtherVersions Category">
-                    Інші видання
+                <a href="#!" class="Author_books Category">
+                    Інші книги автора
                 </a>
             </div>
+            @foreach($found_book as $found_books)
             <div class="content">
-                <?php
-                if (!empty($book_name) and !empty($book_author)){
-                $raw_results = $conn->query("SELECT * FROM catalog3
-                                                        WHERE (`book_name` LIKE '%" . $book_name . "%')
-                                                        AND (`book_author` LIKE '%" . $book_author . "%') ");
-                }
-                $results = $raw_results->fetch_array(MYSQLI_ASSOC);
-                ?>
+
                 <div class="bookpreview">
-                    <?php echo '<img src="data:image/png;base64,'
-                        . base64_encode($results['book_image']) . '" alt= "BookPreview" class= "book"/>';?>
+                    <img src="data:image/png;base64,{!! base64_encode($found_books->book_image) !!}" alt="BookPreview" class= "book"/>
                 </div>
                 <div class="info">
                     <div class="buy_menu">
                         <div class="Price Tab">
-                            <?php echo $results['book_price'] . "₴" ?>
+                            {{$found_books->book_price}}₴
                         </div>
                         <div class="Cart Tab">
                             <button class="cart_button">
@@ -75,20 +60,18 @@
                             </button>
                         </div>
                         <div class="Availability Tab">
-                            <?php
-                            if ($results['book_quantity'] > 0) {
-                                echo "Є в наявності";
-                            } else {
-                                echo "Зараз відсутня";
-                            }
-                            ?>
+                            @if($found_books->book_quantity)
+                                Є в наявності
+                            @else
+                                Зараз відсутня
+                            @endif
                         </div>
                     </div>
                     <div class="description">
                         <h2>
-                            Опис <?php echo $results['book_name']; ?>
+                            Опис {{$book_name}}
                         </h2>
-                        <?php echo $results['book_annotation']; ?>
+                        {{$found_books->book_annotation}}
                     </div>
                 </div>
             </div>
@@ -99,8 +82,7 @@
         <div class="mobile3">
             <div class="mobile3_content">
                 <div class="mobile3_bookpreview">
-                    <?php echo '<img src="data:image/jpeg;base64,'
-                        . base64_encode($results['book_image']) . '" alt= "BookPreview" class= "mobile_book"/>';?>
+                    <img src="data:image/png;base64,{!! base64_encode($found_books->book_image) !!}" alt="BookPreview" class= "mobile_book"/>
                     <div class="mobile3_text_book">
                         <h1>{{ $book_name }}</h1>
                         <p>{{ $book_author }}</p>
@@ -108,15 +90,14 @@
                     <div class="mobile_buy">
                         <div class="mobile_accessibility">
                             <p>
-                                <?php
-                                if ($results['book_quantity'] > 0) {
-                                    echo "Є в наявності";
-                                } else {
-                                    echo "Зараз відсутня";
-                                }
-                                ?>
+                                @if($found_books->book_quantity)
+                                    Є в наявності
+                                @else
+                                    Зараз відсутня
+                                @endif
+
                             </p>
-                            <h1><?php echo $results['book_price'] . "₴" ?></h1>
+                            <h1>{{$found_books->book_price}}₴</h1>
                         </div>
                         <button class="cart_button">
                             <img src="{{asset('img/svg/Cart1.svg')}}" alt="cartmenu" class="cartmenu">
@@ -126,7 +107,7 @@
                         <h1>Опис книги:</h1>
                         <div class="mobile_full_description">
                             <p>
-                                <?php echo $results['book_annotation']; ?>
+                                {{$found_books->book_annotation}}
                             </p>
                         </div>
                     </div>
@@ -134,8 +115,8 @@
                         <a href="#!" class="Author_books Other">
                             Інші книги автора
                         </a>
-                        <a href="#!" class="Book_houses Other">
-                            Інші видання
+                        <a href="#!" class="Reviews Other">
+                            Рецензії
                         </a>
                     </div>
 
@@ -145,7 +126,7 @@
                                 Автор
                             </div>
                             <div class="second_column">
-                                <?php echo $results['book_author']?>
+                                {{$book_author}}
                             </div>
                         </div>
 
@@ -154,30 +135,26 @@
                                 Видавництво
                             </div>
                             <div class="second_column">
-                                <?php echo $results['publishing_house']?>
+                                {{$found_books->house_name}}
                             </div>
                         </div>
-
-                        <?php
-                        if (strlen($results['book_series']) > 0) {
-                            $book_series = $results['book_series'];
-                            echo "<div class='first'>
-                                    <div class='first_column'>
-                                        Серія книг
-                                    </div>
-                                    <div class='second_column'>
-                                        $book_series
-                                    </div>
-                                </div>";
-                        }
-                        ?>
+                        @if(strlen($found_books->book_series) > 0)
+                            <div class='first'>
+                                <div class='first_column'>
+                                    Серія книг
+                                </div>
+                                <div class='second_column'>
+                                    {{$found_books->book_series}}
+                                </div>
+                            </div>
+                        @endif
 
                         <div class="first">
                             <div class="first_column">
                                 Мова
                             </div>
                             <div class="second_column">
-                                <?php echo $results['book_language']?>
+                                {{$found_books->language}}
                             </div>
                         </div>
 
@@ -186,23 +163,19 @@
                                 Рік видання
                             </div>
                             <div class="second_column">
-                                <?php echo $results['publish_year']?>
+                                {{$found_books->publish_year}}
                             </div>
                         </div>
-
-                        <?php
-                        if (strlen($results['book_translator']) > 0) {
-                            $book_translator = $results['book_translator'];
-                            echo "<div class='first'>
-                                    <div class='first_column'>
-                                        Перекладач
-                                    </div>
-                                    <div class='second_column'>
-                                        $book_translator
-                                    </div>
-                                </div>";
-                        }
-                        ?>
+                        @if(strlen($found_books->book_translator) > 0)
+                            <div class='first'>
+                                <div class='first_column'>
+                                    Перекладач
+                                </div>
+                                <div class='second_column'>
+                                    {{$found_books->book_translator}}
+                                </div>
+                            </div>
+                        @endif
 
 
                         <div class="first">
@@ -210,7 +183,7 @@
                                 Кількість сторінок
                             </div>
                             <div class="second_column">
-                                <?php echo $results['book_pages']?>
+                                {{$found_books->book_pages}}
                             </div>
                         </div>
                     </div>
@@ -219,7 +192,7 @@
             </div>
         </div>
     </section>
-
+    @endforeach
     @include("layouts.footer")
 
 </main>
