@@ -31,7 +31,8 @@
                 <a href="#!" class="Reviews Category">
                     Рецензії
                 </a>
-                <a href="#!" class="AboutAuthor Category">
+                <a href="{{ action([\App\Http\Controllers\PagesController::class, 'author'],
+                                    ['name' => $book_name, 'author' => $book_author]) }}" class="AboutAuthor Category">
                     Про автора
                 </a>
                 <a href="#!" class="Author_books Category">

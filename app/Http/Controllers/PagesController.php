@@ -107,6 +107,18 @@ class PagesController extends Controller
         return view('pages.Characteristic', ['found_book' => $raw_results])->with(['book_author' => $author,'book_name' => $name]) ;
     }
 
+    public function author($author, $name)
+    {
+        $raw_results = Catalog2::join('author', 'catalog2.book_author', '=', 'author.id_author')
+            ->join('book_genre', 'catalog2.book_genre', '=', 'book_genre.id_genre')
+            ->join('book_language', 'catalog2.book_language', '=', 'book_language.id_language')
+            ->join('publishing_house', 'catalog2.publishing_house', '=', 'publishing_house.id_publishing')
+            ->whereRaw('book_name LIKE \'' . $name . '\''. "AND" . ' full_name LIKE \'' . $author . '\'')
+            ->get();
+        return view('pages.about_author', ['found_book' => $raw_results])->with(['book_author' => $author,'book_name' => $name]) ;
+    }
+
+
     public function search(Request $request)
     {
         $book= $request->book;

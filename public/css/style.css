@@ -210,6 +210,54 @@ a.chat{
     color: #F5F5F7;
 
 }
+
+.about_author{
+    margin-top: 54px;
+    display: flex;
+    flex-direction: row;
+    text-align: left;
+}
+
+.about_author_image{
+    height: 350px;
+    width: 250px;
+}
+
+.author_info{
+    display: flex;
+    flex-direction: column;
+}
+
+.author_s{
+    display: flex;
+    flex-direction: row;
+}
+
+.Info{
+    font-size: 15px;
+    line-height: 20px;
+}
+
+.Second{
+    margin-left: 20px;
+    color: #5d5d5d;
+}
+
+.author_description{
+    width: 60%;
+    padding-left: 100px;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 17px;
+    line-height: 22px;
+}
+
+.author_full_description{
+    height: 350px;
+    overflow-y: scroll;
+}
+
 .SearchOnSite{
     margin-top: 250px;
     margin-right: 305px;
@@ -800,6 +848,19 @@ a.chat{
     color: #000000;
 }
 
+.Categories3{
+    width: 62%;
+    height: 47px;
+    display: flex;
+    flex-direction: row;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 278%;
+    color: #000000;
+}
+
 .Category {
     width: 25%;
     border: 1px solid #555555;
@@ -826,6 +887,11 @@ a.chat{
 
 
 .Categories2 .Characteristics.Category{
+    background-color: #424245;
+    color: #f5f5f7;
+}
+
+.Categories3 .AboutAuthor.Category{
     background-color: #424245;
     color: #f5f5f7;
 }
@@ -1451,6 +1517,9 @@ input[type="checkbox"]:disabled+label::before {
 }
 
 @media (max-width: 950.4px) {
+    .author_description{
+        width: 90%;
+    }
     .SearchOnSite{
         margin-right: 218px;
         transition: 3s;
@@ -1781,6 +1850,10 @@ input[type="checkbox"]:disabled+label::before {
 
 
 @media (max-width: 660px){
+    .about_author_image{
+        height: 175px;
+        width: 125px;
+    }
     .HeaderText2{
         top: 350px;
         left:50px;
@@ -2931,6 +3004,9 @@ input[type="checkbox"]:disabled+label::before {
         width: 100%;
     }
     .Categories2{
+        width: 100%;
+    }
+    .Categories3{
         width: 100%;
     }
 }

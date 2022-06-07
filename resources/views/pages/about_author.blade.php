@@ -19,7 +19,7 @@
                 <h1>
                     {{ $book_name }}  - {{ $book_author }}
                 </h1>
-                <div class="Categories2">
+                <div class="Categories3">
                     <a href="{{ action([\App\Http\Controllers\PagesController::class, 'info'],
                                     ['name' => $book_name, 'author' => $book_author]) }}" class="Main Category">
                         Усе про книгу
@@ -41,107 +41,29 @@
                 </div>
                 @foreach($found_book as $found_books)
                     <div class="content">
-
-{{--                        <div class="bookpreview">--}}
-                            <div class="characteristics">
-                                <div class="first">
-                                    <div class="first_column">
-                                        Автор
-                                    </div>
-                                    <div class="second_column">
-                                        {{$book_author}}
-                                    </div>
-                                </div>
-
-                                <div class="first">
-                                    <div class="first_column">
-                                        Видавництво
-                                    </div>
-                                    <div class="second_column">
-                                        {{$found_books->house_name}}
-                                    </div>
-                                </div>
-                                @if(strlen($found_books->book_series) > 0)
-                                    <div class='first'>
-                                        <div class='first_column'>
-                                            Серія книг
+                        <div class="about_author">
+                            <img src="data:image/png;base64,{!! base64_encode($found_books->image) !!}" alt="about_author_image" class= "about_author_image"/>
+                            <div class="author_description">
+                                <div class="author_info">
+                                    <div class="author_s">
+                                        <div class="First Info">
+                                            Повне ім'я:
                                         </div>
-                                        <div class='second_column'>
-                                            {{$found_books->book_series}}
-                                        </div>
+                                        <div class="Second Info">{{$found_books->full_name}}</div>
                                     </div>
-                                @endif
+                                    <div class="author_s">
+                                        <div class="First Info">Дата народження:</div>
+                                        <div class="Second Info">{{$found_books->birth}}</div>
+                                    </div>
 
-                                <div class="first">
-                                    <div class="first_column">
-                                        Мова
-                                    </div>
-                                    <div class="second_column">
-                                        {{$found_books->language}}
-                                    </div>
                                 </div>
-
-                                <div class="first">
-                                    <div class="first_column">
-                                        Рік видання
-                                    </div>
-                                    <div class="second_column">
-                                        {{$found_books->publish_year}}
-                                    </div>
-                                </div>
-                                @if(strlen($found_books->book_translator) > 0)
-                                    <div class='first'>
-                                        <div class='first_column'>
-                                            Перекладач
-                                        </div>
-                                        <div class='second_column'>
-                                            {{$found_books->book_translator}}
-                                        </div>
-                                    </div>
-                                @endif
-
-
-                                <div class="first">
-                                    <div class="first_column">
-                                        Кількість сторінок
-                                    </div>
-                                    <div class="second_column">
-                                        {{$found_books->book_pages}}
-                                    </div>
-                                </div>
-                            </div>
-
-{{--                        </div>--}}
-                        <div class="info">
-                            <div class="characteristic_preview">
-                                <div class="Image Space">
-                                    <img src="data:image/png;base64,{!! base64_encode($found_books->book_image) !!}" alt="characteristic_image" class= "characteristic_image"/>
-                                </div>
-                                <div class="Name Space">
-                                    {{$book_name}}
-                                    <br>{{$book_author}}
-                                </div>
-                            </div>
-                            <div class="buy_menu">
-                                <div class="Price Tab">
-                                    {{$found_books->book_price}}₴
-                                </div>
-                                <div class="Cart Tab">
-                                    <button class="cart_button">
-                                        <img src="{{asset('img/svg/Cart1.svg')}}" alt="cartmenu" class="cartmenu">
-                                    </button>
-                                </div>
-                                <div class="Wishlist Tab">
-                                    <button class="wishlist_button">
-                                        <img src="{{asset('img/svg/Vector.svg')}}" alt="wishlistmenu" class="wishlistmenu">
-                                    </button>
-                                </div>
-                                <div class="Availability Tab">
-                                    @if($found_books->book_quantity)
-                                        Є в наявності
-                                    @else
-                                        Зараз відсутня
-                                    @endif
+                                <h1>
+                                    Біографія
+                                </h1>
+                                <div class="author_full_description">
+                                    <p>
+                                        {{$found_books->info}}
+                                    </p>
                                 </div>
                             </div>
                         </div>
