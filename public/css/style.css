@@ -223,6 +223,7 @@ a.chat{
     width: 250px;
 }
 
+
 .author_info{
     display: flex;
     flex-direction: column;
@@ -232,6 +233,8 @@ a.chat{
     display: flex;
     flex-direction: row;
 }
+
+
 
 .Info{
     font-size: 15px;
@@ -567,6 +570,13 @@ a.chat{
     height: 135px;
 }
 
+.mobile3_content{
+    margin-top: 45px;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 600;
+}
+
 .first_column, .second_column{
     font-family: 'Montserrat';
     font-style: normal;
@@ -822,6 +832,12 @@ a.chat{
     justify-content: space-between;
 }
 
+.content2{
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-between;
+}
+
 .Categories {
     width: 62%;
     height: 47px;
@@ -849,6 +865,19 @@ a.chat{
 }
 
 .Categories3{
+    width: 62%;
+    height: 47px;
+    display: flex;
+    flex-direction: row;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 278%;
+    color: #000000;
+}
+
+.Categories4{
     width: 62%;
     height: 47px;
     display: flex;
@@ -892,6 +921,11 @@ a.chat{
 }
 
 .Categories3 .AboutAuthor.Category{
+    background-color: #424245;
+    color: #f5f5f7;
+}
+
+.Categories4 .Author_books.Category{
     background-color: #424245;
     color: #f5f5f7;
 }
@@ -1400,6 +1434,11 @@ input[type="checkbox"]:disabled+label::before {
     a.chat{
         transition: 4s;
         margin-right: 0;
+    }
+
+    .SearchOnSite{
+        margin-right: 255px;
+        transition: 3s;
     }
 }
 @media (max-width:1246px) {
@@ -2968,6 +3007,10 @@ input[type="checkbox"]:disabled+label::before {
         justify-content: flex-start;
         width: 100%;
     }
+    .content2{
+        justify-content: flex-start;
+        width: 100%;
+    }
     .info{
         transition:4s;
         margin-left: 50px;
@@ -3009,10 +3052,19 @@ input[type="checkbox"]:disabled+label::before {
     .Categories3{
         width: 100%;
     }
+    .Categories4{
+        width: 100%;
+    }
 }
 
 @media(max-width: 854px){
     .content{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .content2{
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -3025,6 +3077,11 @@ input[type="checkbox"]:disabled+label::before {
 .Page_section{
     width: 80%;
 }
+.Page_section2{
+    width: 100%;
+}
+
+
 
 .Page_section .row {
     width: 100%;
@@ -3034,6 +3091,16 @@ input[type="checkbox"]:disabled+label::before {
     justify-content: left;
 
 }
+
+.Page_section2 .row {
+    width: 100%;
+    height: auto;
+
+    text-align: left;
+    justify-content: left;
+
+}
+
 
 .Page_section .col {
     width: 20%;
@@ -3047,10 +3114,30 @@ input[type="checkbox"]:disabled+label::before {
     flex: none;
 }
 
+.Page_section2 .col {
+    width: 20%;
+    border: 1px solid rgba(145, 145, 148, 0.4);
+    /* height: 468px; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    flex: none;
+}
+
+
 .Page_section .col img[alt="Andjey - witcher"] {
     width: 193px;
     height: 280px;
 }
+
+
+.Page_section2 .col img[alt="Andjey - witcher"] {
+    width: 193px;
+    height: 280px;
+}
+
 
 .Page_section .col .name {
     margin: 0;
@@ -3065,6 +3152,20 @@ input[type="checkbox"]:disabled+label::before {
     line-height: 100%;
 
 }
+.Page_section2 .col .name {
+    margin: 0;
+    margin-top: 22px;
+    width: 100%;
+
+    font-family: 'Montserrat';
+    font-style: italic;
+    font-weight: 600;
+    font-size: 14px;
+    color: #000000;
+    line-height: 100%;
+
+}
+
 
 .Page_section .col .author {
     margin: 0;
@@ -3079,6 +3180,20 @@ input[type="checkbox"]:disabled+label::before {
     width: 100%;
 }
 
+.Page_section2 .col .author {
+    margin: 0;
+    margin-top: 23px;
+
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 10px;
+
+    color: #000000;
+    width: 100%;
+}
+
+
 .Page_section .col .price {
     margin: 0;
     margin-top: 12px;
@@ -3092,6 +3207,21 @@ input[type="checkbox"]:disabled+label::before {
     color: #000000;
 }
 
+.Page_section2 .col .price {
+    margin: 0;
+    margin-top: 12px;
+    margin-bottom: 29px;
+
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+
+    color: #000000;
+}
+
+
+
 .Page_section .col .cartcatalog {
     display: flex;
     width: 100%;
@@ -3099,11 +3229,27 @@ input[type="checkbox"]:disabled+label::before {
     align-items: center;
 }
 
+.Page_section2 .col .cartcatalog {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
 .Page_section {
     margin-left: 12px;
 }
 
+.Page_section2 {
+    margin-left: 12px;
+}
+
 .Page_section .row {
+    line-height: 100%;
+}
+
+.Page_section2 .row {
     line-height: 100%;
 }
 
@@ -3117,10 +3263,17 @@ input[type="checkbox"]:disabled+label::before {
     .Page_section .col {
         width: 25%;
     }
+
+    .Page_section2 .col {
+        width: 25%;
+    }
 }
 
 @media (max-width: 1100px) {
     .Page_section .col {
+        width: 33.3%;
+    }
+    .Page_section2 .col {
         width: 33.3%;
     }
 }
@@ -3129,10 +3282,17 @@ input[type="checkbox"]:disabled+label::before {
     .Page_section .col {
         width: 50%;
     }
+    .Page_section2 .col {
+        width: 50%;
+    }
 }
 
 @media (max-width: 770px) {
     .Page_section .col img[alt="Andjey - witcher"] {
+        width: 140px;
+        height: 203px;
+    }
+    .Page_section2 .col img[alt="Andjey - witcher"] {
         width: 140px;
         height: 203px;
     }
@@ -3152,11 +3312,21 @@ input[type="checkbox"]:disabled+label::before {
     .Page_section{
         width: 100%;
     }
+    .Page_section2{
+        width: 100%;
+    }
     .Page_section .row {
+        margin: 0;
+    }
+    .Page_section2 .row {
         margin: 0;
     }
 
     .Pages, .Page_section {
+        margin: 0;
+    }
+
+    .Page_section2 {
         margin: 0;
     }
 
@@ -3188,12 +3358,20 @@ input[type="checkbox"]:disabled+label::before {
     .Page_section .col {
         width: 100%;
     }
+    .Page_section2 .col {
+        width: 100%;
+    }
 
     .Pages {
         display: none;
     }
 
     .Page_section .col {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .Page_section2 .col {
         display: flex;
         flex-direction: row;
     }
@@ -3205,7 +3383,19 @@ input[type="checkbox"]:disabled+label::before {
         font-size: 16px;
     }
 
+    .Page_section2 .col .name {
+        font-family: 'Montserrat';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+    }
+
     .Page_section .col .author {
+        font-weight: 400;
+        font-size: 10px;
+        margin-top: 6px;
+    }
+    .Page_section2 .col .author {
         font-weight: 400;
         font-size: 10px;
         margin-top: 6px;
@@ -3215,8 +3405,15 @@ input[type="checkbox"]:disabled+label::before {
         width: 109px;
         height: 158px;
     }
+    .Page_section2 .col img[alt="Andjey - witcher"] {
+        width: 109px;
+        height: 158px;
+    }
 
     .Page_section .col {
+        height: 210px;
+    }
+    .Page_section2 .col {
         height: 210px;
     }
 
@@ -3228,12 +3425,28 @@ input[type="checkbox"]:disabled+label::before {
         margin: 0;
         margin-top: 60px;
     }
+    .Page_section2 .col .price {
+        font-family: 'Montserrat';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 18px;
+        margin: 0;
+        margin-top: 60px;
+    }
+
 
     .Page_section .col .second_need {
         margin-left: 45px;
     }
+    .Page_section2 .col .second_need {
+        margin-left: 45px;
+    }
 
     .Page_section .add_to_cart {
+        display: none;
+    }
+
+    .Page_section2 .add_to_cart {
         display: none;
     }
 
@@ -3244,7 +3457,18 @@ input[type="checkbox"]:disabled+label::before {
         margin-top: 60px;
     }
 
+    .Page_section2 .add_to_cart-mobile img {
+        height: 38px;
+        width: 38px;
+
+        margin-top: 60px;
+    }
+
     .Page_section h1 {
+        display: none;
+    }
+
+    .Page_section2 h1 {
         display: none;
     }
 
@@ -3258,13 +3482,27 @@ input[type="checkbox"]:disabled+label::before {
     width: 205px;
 }
 
+.Page_section2 .second_need {
+    display: flex;
+    flex-direction: column;
+    width: 205px;
+}
+
 @media (max-width: 660px) {
     .Page_section .second_need {
+        width: 100%;
+    }
+    .Page_section2 .second_need {
         width: 100%;
     }
 }
 
 .Page_section .name {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.Page_section2 .name {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -3307,6 +3545,10 @@ img[alt="heart"] {
     }
 
     .Page_section .add_to_cart-mobile {
+        display: none;
+    }
+
+    .Page_section2 .add_to_cart-mobile {
         display: none;
     }
 
@@ -3556,8 +3798,17 @@ input[class="checkbox1"]+label::before,  input[class="checkbox2"]+label::before{
     width:100%;
 }
 
+.search_result .Page_section2{
+    margin-left:0;
+    padding-left: 20px;
+    width:100%;
+}
+
 @media (max-width: 541px) {
     .search_result .Page_section{
+        padding-left: 0;
+    }
+    .search_result .Page_section2{
         padding-left: 0;
     }
     .search_result{
@@ -3570,6 +3821,9 @@ form{
 }
 
 .search_result .Page_section{
+    margin-bottom: 50px;
+}
+.search_result .Page_section2{
     margin-bottom: 50px;
 }
 
@@ -3732,3 +3986,42 @@ form{
     flex-direction: column;
 
 }
+
+.dropbtn {
+    background-color: #3498DB;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+    background-color: #2980B9;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown a:hover {background-color: #ddd;}
+
+.show {display: block;}

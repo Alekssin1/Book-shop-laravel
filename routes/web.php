@@ -17,7 +17,7 @@ use App\Http\Controllers\PagesController;
 
 Route::get('/', [PagesController::class, 'Landing']);
 
-Route::get('/catalog/', [PagesController::class, 'catalog'] );
+Route::get('/catalog/', [PagesController::class, 'catalog'] )->name('catalog');
 
 Route::get('/catalog/{author}/{name}', [PagesController::class, 'info'] );
 
@@ -27,11 +27,19 @@ Route::get('/catalog/{author}/{name}/characteristic', [PagesController::class,'c
 
 Route::get('/catalog/{author}/{name}/author', [PagesController::class,'author']);
 
-Route::get('/login/', [PagesController::class,'login']);
+Route::get('/catalog/{author}/{name}/author/books', [PagesController::class,'author_books']);
 
-Route::get('/register/', [PagesController::class,'register']);
-Route::post('/register/', [PagesController::class,'register']);
+Route::get('/login/', function () {
+    return view('pages.login');
+})->name('login');
 
+Route::post('/login/wws', 'PagesController@login')->name('signin');
+
+Route::get('/register/', function () {
+    return view('pages.registration');
+})->name('register');
+//Route::get('/register/', function(){return view('pages.registration');} );
+Route::post('/register/wws', 'PagesController@register')->name('signup');
 Route::post('/welcome/', [PagesController::class,'index'])->name("index");
 
 //Route::get('/aboba/', 'CatalogController@how');

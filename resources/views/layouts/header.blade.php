@@ -18,7 +18,7 @@
         <div class="menu_links">
             <a href="#!" class="menu_link"><img src="{{asset('img/svg/wish list.svg')}}" alt="menu_images" class="menu_images"></a>
             <a href="#!" class="menu_link"><img src="{{asset('img/svg/Cart3.svg')}}" alt="menu_images" class="menu_images"></a>
-            <a href="{{ action([\App\Http\Controllers\PagesController::class, 'login']) }}" class="menu_link"><img src="{{asset('img/svg/user.svg')}}" alt="menu_images" class="menu_images"></a>
+            <a href="{{ route("login") }}" class="menu_link"><img src="{{asset('img/svg/user.svg')}}" alt="menu_images" class="menu_images"></a>
         </div>
     </div>
 </header>
@@ -32,7 +32,7 @@
             <img src="{{asset('img/svg/menu.svg')}}" class="list_menu_mobile">
         </label>
         <div class="button_menu">
-            <a href="{{ action([\App\Http\Controllers\PagesController::class, 'login']) }}">Моя сторінка</a>
+            <a href="{{ route("login") }}">Моя сторінка</a>
             <a href="#!">Список бажаного</a>
             <a href="#!">Корзина</a>
         </div>

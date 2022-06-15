@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class registration extends Model
 {
-    use HasFactory;
+    protected $table = 'users';
 }

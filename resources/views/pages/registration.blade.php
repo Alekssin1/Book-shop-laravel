@@ -1,4 +1,4 @@
-@include('connect_to_database')
+{{--@include('connect_to_database')--}}
 @extends('layouts.app')
 @section('head')
     <meta charset="UTF-8">
@@ -11,9 +11,7 @@
 
 @section('content')
     <div class="register">
-
-
-        <form method="post" action="{{ action([\App\Http\Controllers\PagesController::class, 'register']) }}">
+        <form method="post" action="{{ route('signup') }}">
             @csrf
             @include('errors')
             <div class="input-group">
@@ -40,7 +38,7 @@
                 <button type="submit" class="btn" name="reg_user">Register</button>
             </div>
             <p>
-                Already a member? <a href="{{ action([\App\Http\Controllers\PagesController::class, 'login']) }}">Sign in</a>
+                Already a member? <a href="{{ route('login') }}">Sign in</a>
             </p>
         </form>
     </div>

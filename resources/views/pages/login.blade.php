@@ -12,7 +12,7 @@
     <div class="register">
 
 
-        <form method="post" action="{{ action([\App\Http\Controllers\PagesController::class, 'index']) }}">
+        <form method="post" action="{{ route('signin') }}">
             @csrf
             @include('errors')
             <div class="input-group">
@@ -27,7 +27,7 @@
                 <button type="submit" class="btn" name="login_user">Login</button>
             </div>
             <p>
-                Not yet a member? <a href="{{ action([\App\Http\Controllers\PagesController::class, 'register']) }}">Sign up</a>
+                Not yet a member? <a href="{{ route('register') }}">Sign up</a>
             </p>
         </form>
     </div>

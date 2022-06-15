@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Catalog2;
 use Illuminate\Http\Request;
-
+use App\Models\registration;
 class PagesController extends Controller
 {
     public function index()
@@ -118,6 +118,17 @@ class PagesController extends Controller
         return view('pages.about_author', ['found_book' => $raw_results])->with(['book_author' => $author,'book_name' => $name]) ;
     }
 
+    public function author_books($author, $name)
+    {
+        $raw_results = Catalog2::join('author', 'catalog2.book_author', '=', 'author.id_author')
+            ->join('book_genre', 'catalog2.book_genre', '=', 'book_genre.id_genre')
+            ->join('book_language', 'catalog2.book_language', '=', 'book_language.id_language')
+            ->join('publishing_house', 'catalog2.publishing_house', '=', 'publishing_house.id_publishing')
+            ->whereRaw('full_name LIKE \'' . $author . '\''. "AND" . ' book_name  <> \'' . $name . '\'')
+            ->get();
+        return view('pages.author_book', ['found_books' => $raw_results])->with(['book_author' => $author,'book_name' => $name]) ;
+    }
+
 
     public function search(Request $request)
     {
@@ -127,14 +138,48 @@ class PagesController extends Controller
         ->get()]);
     }
 
-    public function login()
+    public function login(Request $request)
     {
-        return view('pages.login');
+        $reg = new registration();
+        if ($reg->where('email', '=', $request->input('email'))->where('password', '=', md5($request->input('password')))->doesntExist()){
+            return 'Введені некоректні данні';
+        }
+        $sectionUser = $reg::where('email', '=', $request->input('email'))->where('password', '=', md5($request->input('password')))->get()[0];
+        session(['user' => [
+            'id' => $sectionUser->id,
+            'username' => $sectionUser->username,
+            'usersurname' => $sectionUser->usersurname,
+            'email' => $sectionUser->email
+        ]]);
+        return redirect()->route('catalog');
     }
 
-    public function register()
+    public function register(Request $request)
     {
-        return view('pages.registration');
+        $reg = new registration();
+        $reg->username = $request->input('username');
+        $reg->usersurname = $request->input('usersurname');
+        $reg->email = $request->input('email');
+//        if (empty($request->input('username'))){
+//            array_push($errors, "Name is required");
+//        }
+//        if (empty($request->input('usersurname'))){
+//            array_push($errors, "Surname is required");
+//        }
+//        if (empty($request->input('email'))){
+//            array_push($errors, "Email is required");
+//        }
+//        if (empty($request->input('password_1'))){
+//            array_push($errors, "Password is required");
+//        }
+
+//        if ($reg->input('password_1') != $reg->input('password_2')){
+//            array_push($errors, "The two passwords do not match")
+//        }
+        $reg->password = md5($request->input('password_1'));
+        $reg->save();
+        return redirect()->route('login');
+//        return view('pages.registration');
     }
 
     public function Landing()

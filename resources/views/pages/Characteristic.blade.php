@@ -35,7 +35,8 @@
                                     ['name' => $book_name, 'author' => $book_author]) }}" class="AboutAuthor Category">
                         Про автора
                     </a>
-                    <a href="#!" class="Author_books Category">
+                    <a href="{{ action([\App\Http\Controllers\PagesController::class, 'author_books'],
+                                    ['name' => $book_name, 'author' => $book_author]) }}" class="Author_books Category">
                         Інші книги автора
                     </a>
                 </div>
@@ -183,7 +184,8 @@
                             </div>
                         </div>
                         <div class="more_content">
-                            <a href="#!" class="Author_books Other">
+                            <a href="{{ action([\App\Http\Controllers\PagesController::class, 'author_books'],
+                                    ['name' => $book_name, 'author' => $book_author]) }}" class="Author_books Other">
                                 Інші книги автора
                             </a>
                             <a href="#!" class="Reviews Other">
