@@ -778,11 +778,11 @@ a.chat{
 }
 
 .menu_link{
-    padding-left: 55.25px;
+    margin-left: 55.25px;
 }
 
 .menu_link:first-child{
-    padding-left: 0;
+    margin-left: 0;
 }
 
 .menu_link:hover, .menu_link:focus, .menu_link:active{
@@ -1375,6 +1375,12 @@ input[type="checkbox"]:disabled+label::before {
 .cartcatalog{
     display: flex;
     flex-direction: row;
+}
+
+.cross{
+    width: 32px;
+    height: 32px;
+    margin-left: 10px;
 }
 
 .cartcatalog a{
@@ -1993,6 +1999,16 @@ input[type="checkbox"]:disabled+label::before {
         align-items: flex-start;
     }
 
+    .mobile_cross img{
+        width: 38px;
+        height: 38px;
+    }
+
+    .mobile_cross:hover{
+        opacity: 0.5;
+        transition: opacity .4s linear;
+    }
+
     .Block1_mobile h1{
         font-family: 'Montserrat';
         font-style: normal;
@@ -2016,6 +2032,10 @@ input[type="checkbox"]:disabled+label::before {
         height: 280px;
         color: #F5F5F7;
         width: 260px;
+    }
+
+    .delete_from_cart{
+        display: none;
     }
 
     .Block2{
@@ -3988,16 +4008,18 @@ form{
 }
 
 .dropbtn {
-    background-color: #3498DB;
+    background-color: transparent;
     color: white;
-    padding: 16px;
+    margin-left: 55.25px;
     font-size: 16px;
     border: none;
     cursor: pointer;
 }
 
 .dropbtn:hover, .dropbtn:focus {
-    background-color: #2980B9;
+    background-color: transparent;
+    opacity: 0.8;
+    transition: opacity .4s linear;
 }
 
 .dropdown {
@@ -4008,20 +4030,106 @@ form{
 .dropdown-content {
     display: none;
     position: absolute;
-    background-color: #f1f1f1;
+    color: #F5F5F7;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    margin-left: 125px;
+    background-color: #5d5d5d;
     min-width: 160px;
+    max-width: 200px;
     overflow: auto;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
+    margin-top: 53px;
 }
 
+.dropdown-content p {
+    color: #F5F5F7;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    text-decoration: none;
+    text-align: center;
+    display: block;
+}
 .dropdown-content a {
-    color: black;
+    color: #F5F5F7;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
     padding: 12px 16px;
     text-decoration: none;
     display: block;
 }
 
-.dropdown a:hover {background-color: #ddd;}
+.dropdown-content a:hover {color: red}
 
 .show {display: block;}
+
+.buy{
+    padding-top: 50px;
+    color: #5C5C5C;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    text-decoration: none;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.cheque{
+    margin-left: 40px;
+    width: 20%;
+    height: 70px;
+    color: #F5F5F7;
+    background: #363535;
+    border-radius: 16px;
+    border-color: #5d5d5d;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.cheque_price{
+    margin-left: 20px;
+    width: 10%;
+}
+.cheque_buy{
+    margin-left: 75px;
+    margin-right: 20px;
+    height: 80%;
+    background: #424245;
+    border-radius: 16px;
+    border-color: #5d5d5d;
+    border: 1px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.cheque_buy img{
+    width: 90%;
+
+}
+
+@media (max-width: 960px) {
+    .cheque{
+        width: 30%;
+    }
+    .cheque_buy{
+        margin-left: 50px;
+    }
+}
+@media (max-width: 540px){
+    .cheque{
+        width: 40%;
+    }
+}
+@media (max-width: 440px){
+    .cheque{
+        width: 60%;
+    }
+}

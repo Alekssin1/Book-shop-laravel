@@ -55,10 +55,20 @@
                                             <span class="author">{{$book->full_name}}</span>
                                             <div class='cartcatalog'>
                                                 <span class="price">{{$book->book_price}}₴</span>
-                                                <a href="#!" class="add_to_cart">
+                                                <a href="@if(in_array($book->id, $books_check))
+                                                   {{route('cart')}}
+                                               @else
+                                                   {{route('add_cart', $book->id)}}
+                                               @endif
+                                                " class="add_to_cart">
                                                     <img src="{{asset('./img/svg/Catalog_cart.svg')}}" alt="cartcatalog">
                                                 </a>
-                                                <a href="#!" class="add_to_cart-mobile">
+                                                <a href="@if(in_array($book->id, $books_check))
+                                                   {{route('cart')}}
+                                               @else
+                                                   {{route('add_cart', $book->id)}}
+                                               @endif
+                                                " class="add_to_cart-mobile">
                                                     <img src="{{asset('./img/Cart.png')}}" alt="cartcatalog">
                                                 </a>
                                             </div>
@@ -100,10 +110,20 @@
                                             <span class="author">{{$book->full_name}}</span>
                                             <div class='cartcatalog'>
                                                 <span class="price">{{$book->book_price}}₴</span>
-                                                <a href="#!" class="add_to_cart">
+                                                <a href="@if(in_array($book->id, $books_check))
+                                                   {{route('cart')}}
+                                               @else
+                                                   {{route('add_cart', $book->id)}}
+                                               @endif
+                                                " class="add_to_cart">
                                                     <img src="{{asset('./img/svg/Catalog_cart.svg')}}" alt="cartcatalog">
                                                 </a>
-                                                <a href="#!" class="add_to_cart-mobile">
+                                                <a href="@if(in_array($book->id, $books_check))
+                                                   {{route('cart')}}
+                                               @else
+                                                   {{route('add_cart', $book->id)}}
+                                               @endif
+                                                " class="add_to_cart-mobile">
                                                     <img src="{{asset('./img/Cart.png')}}" alt="cartcatalog">
                                                 </a>
                                             </div>

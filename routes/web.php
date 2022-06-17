@@ -35,6 +35,8 @@ Route::get('/login/', function () {
 
 Route::post('/login/wws', 'PagesController@login')->name('signin');
 
+Route::get('/exit/', 'PagesController@exit')->name('exit');
+
 Route::get('/register/', function () {
     return view('pages.registration');
 })->name('register');
@@ -42,7 +44,8 @@ Route::get('/register/', function () {
 Route::post('/register/wws', 'PagesController@register')->name('signup');
 Route::post('/welcome/', [PagesController::class,'index'])->name("index");
 
-//Route::get('/aboba/', 'CatalogController@how');
-
-
-
+Route::get('/cart/', 'PagesController@cart')->name('cart');
+Route::get('/load/{book_id}', 'PagesController@add_cart')->name('add_cart');
+Route::post('/cartnum/{number}', 'PagesController@quantity')->name("check_quantity");
+Route::get('/delete_cart/{number}', 'PagesController@delete_from_cart')->name("delete_from_cart");
+Route::get('/buy/', 'PagesController@buy')->name("buy");

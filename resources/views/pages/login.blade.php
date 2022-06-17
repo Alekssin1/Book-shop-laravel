@@ -20,14 +20,17 @@
                 <input type="email" name="email" >
             </div>
             <div class="input-group">
-                <label>Password</label>
+                <label>Пароль</label>
                 <input type="password" name="password">
             </div>
             <div class="input-group">
-                <button type="submit" class="btn" name="login_user">Login</button>
+                <button type="submit" class="btn" name="login_user">Логін</button>
             </div>
             <p>
-                Not yet a member? <a href="{{ route('register') }}">Sign up</a>
+                Ви досі не учасник нашого магазину? <a href="{{ route('register') }}">Зареєструватись</a>
+            </p>
+            <p>
+                Створю аккаунт пізніше. <a href="{{ action([\App\Http\Controllers\PagesController::class, 'Landing']) }}">Перейти на головну</a>
             </p>
         </form>
     </div>

@@ -66,7 +66,8 @@
                                 <div class="col">
                                     <a href="{{ action([\App\Http\Controllers\PagesController::class, 'info'],
                                     ['name' => $finded_book->book_name, 'author' => $finded_book->full_name]) }}">
-                                        <img src="data:image/png;base64,{!! base64_encode($finded_book->book_image) !!}" alt="Andjey - witcher"/>
+                                        <img src="data:image/png;base64,{!! base64_encode($finded_book->book_image) !!}"
+                                             alt="Andjey - witcher"/>
                                     </a>
                                     <div class='second_need'>
 
@@ -75,10 +76,20 @@
                                         <span class="author">{{$finded_book->full_name}}</span>
                                         <div class='cartcatalog'>
                                             <span class="price">{{$finded_book->book_price}}₴</span>
-                                            <a href="#!" class="add_to_cart">
+                                            <a href="@if(in_array($finded_book->id, $books_check))
+                                                   {{route('cart')}}
+                                               @else
+                                                   {{route('add_cart', $finded_book->id)}}
+                                               @endif
+                                                " class="add_to_cart">
                                                 <img src="./img/svg/Catalog_cart.svg" alt="cartcatalog">
                                             </a>
-                                            <a href="#!" class="add_to_cart-mobile">
+                                            <a href="@if(in_array($finded_book->id, $books_check))
+                                                   {{route('cart')}}
+                                               @else
+                                                   {{route('add_cart', $finded_book->id)}}
+                                               @endif
+                                               " class="add_to_cart-mobile">
                                                 <img src="./img/Cart.png" alt="cartcatalog">
                                             </a>
                                         </div>

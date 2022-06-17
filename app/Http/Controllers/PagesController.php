@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Catalog2;
+use App\Models\Cart;
 use Illuminate\Http\Request;
 use App\Models\registration;
 class PagesController extends Controller
@@ -79,7 +80,14 @@ class PagesController extends Controller
                 ->whereRaw($sql)
                 ->get();
         }
-        return view('pages.catalog', ['finded_books'=>$raw_results, 'finded_section'=>$request->Section]);
+        $cart = new Cart();
+        $check = $cart->where('id_user', '=', session('user')['id'])->get();
+        $books_check = [];
+        foreach ($check as $book)
+        {
+            array_push($books_check, $book["id_book"]);
+        }
+        return view('pages.catalog', ['finded_books'=>$raw_results, 'finded_section'=>$request->Section, 'books_check'=>$books_check]);
     }
 
     public function info($author, $name)
@@ -92,8 +100,16 @@ class PagesController extends Controller
                 ->join('publishing_house', 'catalog2.publishing_house', '=', 'publishing_house.id_publishing')
                 ->whereRaw('book_name LIKE \'' . $name . '\''. "AND" . ' full_name LIKE \'' . $author . '\'')
                 ->get();
+            $cart = new Cart();
+            $check = $cart->where('id_user', '=', session('user')['id'])->get();
+            $books_check = [];
+            foreach ($check as $book)
+            {
+                array_push($books_check, $book["id_book"]);
+            }
         }
-        return view('pages.info_page', ['found_book' => $raw_results])->with(['book_author' => $author,'book_name' => $name]) ;
+
+        return view('pages.info_page', ['found_book' => $raw_results, 'books_check' => $books_check])->with(['book_author' => $author,'book_name' => $name]) ;
     }
 
     public function characteristic($author, $name)
@@ -126,7 +142,14 @@ class PagesController extends Controller
             ->join('publishing_house', 'catalog2.publishing_house', '=', 'publishing_house.id_publishing')
             ->whereRaw('full_name LIKE \'' . $author . '\''. "AND" . ' book_name  <> \'' . $name . '\'')
             ->get();
-        return view('pages.author_book', ['found_books' => $raw_results])->with(['book_author' => $author,'book_name' => $name]) ;
+        $cart = new Cart();
+        $check = $cart->where('id_user', '=', session('user')['id'])->get();
+        $books_check = [];
+        foreach ($check as $book)
+        {
+            array_push($books_check, $book["id_book"]);
+        }
+        return view('pages.author_book', ['found_books' => $raw_results, 'books_check' => $books_check])->with(['book_author' => $author,'book_name' => $name]) ;
     }
 
 
@@ -152,6 +175,12 @@ class PagesController extends Controller
             'email' => $sectionUser->email
         ]]);
         return redirect()->route('catalog');
+    }
+
+    public function exit()
+    {
+        session(['user'=>null]);
+        return redirect()->route('login');
     }
 
     public function register(Request $request)
@@ -187,5 +216,68 @@ class PagesController extends Controller
         return view('pages.Landing');
     }
 
+    public function cart()
+    {
+        $cart = new Cart();
+        $books = $cart->where('id_user', '=', session('user')['id'])->get();
+        $books_in_cart = [];
+        $total_price = 0;
+        foreach ($books as $book)
+        {
+            array_push($books_in_cart, $book["id_book"]);
+            $total_price += (int)$book['quantity'] * (int)Catalog2::select('book_price')->where('id', '=', $book["id_book"])->get()[0]->book_price;
+        }
+//        return view('pages.cart', ['data'=> Catalog2::join('author', 'catalog2.book_author', '=', 'author.id_author')
+//            ->join('book_genre', 'catalog2.book_genre', '=', 'book_genre.id_genre')
+//            ->join('book_language', 'catalog2.book_language', '=', 'book_language.id_language')
+//            ->join('publishing_house', 'catalog2.publishing_house', '=', 'publishing_house.id_publishing')
+//            ->whereRaw("`book_name` LIKE '%$book%' OR `full_name` LIKE '%$book%'")
+//            ->get()]);
+        $info_books = [];
+        foreach ($books_in_cart as $book_in_cart){
+            array_push($info_books, Catalog2::join('author', 'catalog2.book_author', '=', 'author.id_author')
+                ->join('book_genre', 'catalog2.book_genre', '=', 'book_genre.id_genre')
+                ->join('book_language', 'catalog2.book_language', '=', 'book_language.id_language')
+                ->join('publishing_house', 'catalog2.publishing_house', '=', 'publishing_house.id_publishing')
+                ->where('id', '=', $book_in_cart)
+                ->get());
+        }
+        return view('pages.cart', ['data'=>$info_books, 'info'=>$books, 'total_price'=>$total_price]);
+    }
+
+    public function add_cart($book_id)
+    {
+        $cart = new Cart();
+        $cart->id_user=session('user')['id'];
+        $cart->id_book=$book_id;
+        $cart->save();
+        return redirect()->route('cart');
+    }
+
+    public function quantity($number, Request $request)
+    {
+        $cart = new Cart();
+        $cart->where('id_user', '=', session('user')['id'])->where( 'id_book', '=', $number)->update(["quantity"=>$request->input('book_num')]);
+        return redirect()->route('cart');
+    }
+
+    public function delete_from_cart($number)
+    {
+        $cart = new Cart();
+//        $cart->where('id_user', '=', session('user')['id'])->where( 'id_book', '=', $number)->update(["quantity"=>0]);
+//        if($cart->select('quantity')->where('id_user', '=', session('user')['id'])->where( 'id_book', '=', $number)->get()[0]->quantity == 0)
+//        {
+//
+//        }
+        $cart->where('id_user', '=', session('user')['id'])->where( 'id_book', '=', $number)->delete();
+        return redirect()->route('cart');
+    }
+
+    public function buy()
+    {
+        $cart = new Cart();
+        $cart->where('id_user', '=', session('user')['id'])->delete();
+        return redirect()->route('cart');
+    }
 
 }

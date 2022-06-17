@@ -4,7 +4,7 @@
                         <div class="PublishHouse GroupName">
                             <div class="publish_house_menu">
                                 Видавництво
-                                <div class="number_of_publish_house">843</div>
+                                <div class="number_of_publish_house">12</div>
                             </div>
                             <div class="Options">
                                 <div class="Option">
