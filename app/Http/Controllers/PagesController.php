@@ -317,7 +317,6 @@ class PagesController extends Controller
         $wishlist = new Wishlist();
         $books = $wishlist->where('id_user', '=', session('user')['id'])->get();
         $books_in_cart = [];
-        $total_price = 0;
         foreach ($books as $book) {
             array_push($books_in_cart, $book["id_book"]);
         }

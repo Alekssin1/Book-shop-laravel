@@ -29,8 +29,9 @@
                                     <img src="data:image/png;base64,{!! base64_encode($example->book_image) !!}"
                                          alt="Andjey - witcher"/>
                                 </a>
-                                <div class='second_need'><span class="name">{{$example->book_name}}<a href="{{route('delete_from_cart', $example->id)}}"
-                                                                                                      class="mobile_cross"><img
+                                <div class='second_need'><span class="name">{{$example->book_name}}<a
+                                            href="{{route('delete_from_cart', $example->id)}}"
+                                            class="mobile_cross"><img
                                                 src="{{asset('./img/png/cross.png')}}" alt="heart"></a></span>
                                     <span class="author">{{$example->full_name}}</span>
                                     <div class='cartcatalog'>
@@ -48,32 +49,58 @@
                                             @endforeach
 
                                         </span>
+
                                         <form method="post" action="{{route('check_quantity', $example->id)}}">
                                             @csrf
                                             <label class="check">
                                                 <select name="book_num" onchange="this.form.submit()">
                                                     <option
+                                                        @foreach($info as $item)
+                                                            @if($item->id_user == session('user')['id'] && $item->id_book == $example->id && $item->quantity == 1) selected
+                                                        @endif
+                                                        @endforeach
                                                         value="1">1
                                                     </option>
 
                                                     <option
+                                                        @foreach($info as $item)
+                                                            @if($item->id_user == session('user')['id'] && $item->id_book == $example->id && $item->quantity == 2) selected
+                                                        @endif
+                                                        @endforeach
                                                         value="2">2
                                                     </option>
                                                     <option
+                                                        @foreach($info as $item)
+                                                            @if($item->id_user == session('user')['id'] && $item->id_book == $example->id && $item->quantity == 3) selected
+                                                        @endif
+                                                        @endforeach
                                                         value="3">3
                                                     </option>
                                                     <option
+                                                        @foreach($info as $item)
+                                                            @if($item->id_user == session('user')['id'] && $item->id_book == $example->id && $item->quantity == 4) selected
+                                                        @endif
+                                                        @endforeach
                                                         value="4">4
                                                     </option>
                                                     <option
+                                                        @foreach($info as $item)
+                                                            @if($item->id_user == session('user')['id'] && $item->id_book == $example->id && $item->quantity == 5) selected
+                                                        @endif
+                                                        @endforeach
                                                         value="5">5
                                                     </option>
                                                     <option
+                                                        @foreach($info as $item)
+                                                            @if($item->id_user == session('user')['id'] && $item->id_book == $example->id && $item->quantity == 10) selected
+                                                        @endif
+                                                        @endforeach
                                                         value="10">10
                                                     </option>
                                                 </select>
                                             </label>
                                         </form>
+
                                         <a href="{{route('delete_from_cart', $example->id)}}" class="delete_from_cart">
                                             <img src="{{asset('./img/png/cross.png')}}" alt="cross" class="cross">
                                         </a>
@@ -90,7 +117,7 @@
                             </div>
                             <div class="cheque_buy">
                                 <a href="{{route('buy')}}">
-                                <img src="{{asset('img/svg/Cart1.svg')}}">
+                                    <img src="{{asset('img/svg/Cart1.svg')}}">
                                 </a>
                             </div>
 

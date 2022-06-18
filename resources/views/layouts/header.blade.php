@@ -62,8 +62,8 @@
         </label>
         <div class="button_menu">
             <a href="{{ route("login") }}">Моя сторінка</a>
-            <a href="#!">Список бажаного</a>
-            <a href="#!">Корзина</a>
+            <a href="{{  route('wishlist')  }}">Список бажаного</a>
+            <a href="{{  route('cart')  }}">Корзина</a>
         </div>
     </div>
 </header>
