@@ -4133,3 +4133,56 @@ form{
         width: 60%;
     }
 }
+
+.successful_payment{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100%;
+    background: url(../img/png/image2.png) no-repeat bottom;
+    background-size: cover;
+    align-items: center;
+    justify-content: center;
+}
+
+.cheque_buy:hover{
+    opacity: 0.5;
+    background-color: #5C5C5C;
+    transition: opacity .4s linear;
+}
+
+.successful_message{
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    height: 30%;
+    background-color: #161616;
+    border-radius: 23px;
+    color: #C5C5C5;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    text-decoration: none;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+}
+
+.successful_message_link{
+    margin-top: 40px;
+    text-decoration: none;
+    border-radius: 13px;
+    font-size: 20px;
+    line-height: 150%;
+    width: 50%;
+    background-color: #F5F5F7;
+    color: #5C5C5C;
+    border: 2px;
+}
+
+.successful_message_link:hover
+{
+    opacity: 0.75;
+    transition: opacity .4s linear;
+}

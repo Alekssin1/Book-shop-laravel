@@ -277,7 +277,8 @@ class PagesController extends Controller
     {
         $cart = new Cart();
         $cart->where('id_user', '=', session('user')['id'])->delete();
-        return redirect()->route('cart');
+        return view("pages.successful_payment");
     }
+
 
 }
