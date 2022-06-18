@@ -199,7 +199,7 @@
                         <p>
                             Натисніть кнопку, щоб створити власну<br>електронну бібліотеку.
                         </p>
-                        <button type="submit" class="gotocatalog"><a href="#!" class="cataloglink">Відкрити каталог</a>
+                        <button type="submit" class="gotocatalog"><a href="{{ action([\App\Http\Controllers\PagesController::class, 'catalog']) }}" class="cataloglink">Відкрити каталог</a>
                         </button>
                     </div>
                 </div>
@@ -216,7 +216,7 @@
                         опитування, який відпочинок люди вважають найкращим, переважна кількість відповіла, що вечір з
                         книжкою і горнятком ароматної кави не зрівняється ні з чим.
                     </p>
-                    <button type="submit" class="gotocatalog"><a href="#!" class="cataloglink">Відкрити каталог</a>
+                    <button type="submit" class="gotocatalog"><a href="{{ action([\App\Http\Controllers\PagesController::class, 'catalog']) }}" class="cataloglink">Відкрити каталог</a>
                     </button>
                 </div>
             </div>

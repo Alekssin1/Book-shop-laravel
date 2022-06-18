@@ -9,7 +9,6 @@
 @endsection
 @section('content')
 
-
     @include("layouts.header")
 
 
@@ -17,7 +16,7 @@
         <section class="Infopage2">
             <div class="desktop3">
                 <h1>
-                    {{ $book_name }}  - {{ $book_author }}
+                    {{ $book_name }} - {{ $book_author }}
                 </h1>
                 <div class="Categories4">
                     <a href="{{ action([\App\Http\Controllers\PagesController::class, 'info'],
@@ -25,7 +24,8 @@
                         Усе про книгу
                     </a>
                     <a href="{{ action([\App\Http\Controllers\PagesController::class, 'characteristic'],
-                                    ['name' => $book_name, 'author' => $book_author]) }}" class="Characteristics Category">
+                                    ['name' => $book_name, 'author' => $book_author]) }}"
+                       class="Characteristics Category">
                         Характеристики
                     </a>
                     <a href="#!" class="Reviews Category">
@@ -47,24 +47,38 @@
                             @if(count($found_books)>0)
                                 @foreach($found_books as $book)
                                     <div class="col">
-                                        <a  href="{{ action([\App\Http\Controllers\PagesController::class, 'info'],
-                                              ['name' => $book->book_name, 'author' => $book->full_name]) }}" >
-                                            <img src="data:image/png;base64,{!! base64_encode($book->book_image) !!}" alt="Andjey - witcher"/>
+                                        <a href="{{ action([\App\Http\Controllers\PagesController::class, 'info'],
+                                              ['name' => $book->book_name, 'author' => $book->full_name]) }}">
+                                            <img src="data:image/png;base64,{!! base64_encode($book->book_image) !!}"
+                                                 alt="Andjey - witcher"/>
                                         </a>
-                                        <div class='second_need'><span class="name">{{$book->book_name}}<img src="{{asset('./img/Vector.png')}}" alt="heart"></span>
+                                        <div class='second_need'><span class="name">{{$book->book_name}}<a
+                                                    @if(in_array($book->id, $wishlist_check))
+                                                        href="{{route('wishlist', $book->id)}}"
+                                                    @elseif(session('user')==null)
+                                                        href="{{route('login')}}"
+                                                    @else
+                                                        href="{{route('add_wishlist', $book->id)}}"
+                                        @endif
+                                ><img src="{{asset('./img/Vector.png')}}" alt="heart"></a></span>
                                             <span class="author">{{$book->full_name}}</span>
                                             <div class='cartcatalog'>
                                                 <span class="price">{{$book->book_price}}₴</span>
                                                 <a href="@if(in_array($book->id, $books_check))
                                                    {{route('cart')}}
+                                                   @elseif(session('user')==null)
+                                               {{route('login')}}
                                                @else
                                                    {{route('add_cart', $book->id)}}
                                                @endif
                                                 " class="add_to_cart">
-                                                    <img src="{{asset('./img/svg/Catalog_cart.svg')}}" alt="cartcatalog">
+                                                    <img src="{{asset('./img/svg/Catalog_cart.svg')}}"
+                                                         alt="cartcatalog">
                                                 </a>
                                                 <a href="@if(in_array($book->id, $books_check))
                                                    {{route('cart')}}
+                                                   @elseif(session('user')==null)
+                                               {{route('login')}}
                                                @else
                                                    {{route('add_cart', $book->id)}}
                                                @endif
@@ -102,24 +116,38 @@
                             @if(count($found_books)>0)
                                 @foreach($found_books as $book)
                                     <div class="col">
-                                        <a  href="{{ action([\App\Http\Controllers\PagesController::class, 'info'],
-                                              ['name' => $book->book_name, 'author' => $book->full_name]) }}" >
-                                            <img src="data:image/png;base64,{!! base64_encode($book->book_image) !!}" alt="Andjey - witcher"/>
+                                        <a href="{{ action([\App\Http\Controllers\PagesController::class, 'info'],
+                                              ['name' => $book->book_name, 'author' => $book->full_name]) }}">
+                                            <img src="data:image/png;base64,{!! base64_encode($book->book_image) !!}"
+                                                 alt="Andjey - witcher"/>
                                         </a>
-                                        <div class='second_need'><span class="name">{{$book->book_name}}<img src="{{asset('./img/Vector.png')}}" alt="heart"></span>
+                                        <div class='second_need'><span class="name">{{$book->book_name}}<a
+                                                    @if(in_array($book->id, $wishlist_check))
+                                                        href="{{route('wishlist', $book->id)}}"
+                                                    @elseif(session('user')==null)
+                                                        href="{{route('login')}}"
+                                                    @else
+                                                        href="{{route('add_wishlist', $book->id)}}"
+                                        @endif
+                                ><img src="{{asset('./img/Vector.png')}}" alt="heart"></a></span>
                                             <span class="author">{{$book->full_name}}</span>
                                             <div class='cartcatalog'>
                                                 <span class="price">{{$book->book_price}}₴</span>
                                                 <a href="@if(in_array($book->id, $books_check))
                                                    {{route('cart')}}
+                                                   @elseif(session('user')==null)
+                                               {{route('login')}}
                                                @else
                                                    {{route('add_cart', $book->id)}}
                                                @endif
                                                 " class="add_to_cart">
-                                                    <img src="{{asset('./img/svg/Catalog_cart.svg')}}" alt="cartcatalog">
+                                                    <img src="{{asset('./img/svg/Catalog_cart.svg')}}"
+                                                         alt="cartcatalog">
                                                 </a>
                                                 <a href="@if(in_array($book->id, $books_check))
                                                    {{route('cart')}}
+                                                   @elseif(session('user')==null)
+                                               {{route('login')}}
                                                @else
                                                    {{route('add_cart', $book->id)}}
                                                @endif
@@ -136,8 +164,8 @@
                         </div>
                     </div>
 
-                    </div>
                 </div>
+            </div>
             </div>
         </section>
         @include("layouts.footer")

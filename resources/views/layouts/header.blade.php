@@ -16,7 +16,7 @@
             </div>
         </form>
         <div class="menu_links">
-            <a href="#!" class="menu_link"><img src="{{asset('img/svg/wish list.svg')}}" alt="menu_images" class="menu_images"></a>
+            <a href="{{  route('wishlist')  }}" class="menu_link"><img src="{{asset('img/svg/wish list.svg')}}" alt="menu_images" class="menu_images"></a>
             <a href="{{ route('cart')  }}" class="menu_link"><img src="{{asset('img/svg/Cart3.svg')}}" alt="menu_images" class="menu_images"></a>
             <button onclick="myFunction()" class="dropbtn"><img src="{{asset('img/svg/user.svg')}}" alt="menu_images" class="menu_images"></button>
             <div id="myDropdown" class="dropdown-content">

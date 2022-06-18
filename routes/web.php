@@ -49,3 +49,6 @@ Route::get('/load/{book_id}', 'PagesController@add_cart')->name('add_cart');
 Route::post('/cartnum/{number}', 'PagesController@quantity')->name("check_quantity");
 Route::get('/delete_cart/{number}', 'PagesController@delete_from_cart')->name("delete_from_cart");
 Route::get('/buy/', 'PagesController@buy')->name("buy");
+Route::get('/wishlist/', 'PagesController@wishlist')->name('wishlist');
+Route::get('/loadwishlist/{book_id}', 'PagesController@add_wishlist')->name('add_wishlist');
+Route::get('/delete_wishlist/{number}', 'PagesController@delete_from_wishlist')->name("delete_from_wishlist");

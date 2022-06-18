@@ -55,6 +55,8 @@
                                 <div class="Cart Tab">
                                     <a @if(in_array($found_books->id, $books_check))
                                            href="{{route('cart', $found_books->id)}}"
+                                       @elseif(session('user')==null)
+                                           href="{{route('login')}}"
                                        @else
                                            href="{{route('add_cart', $found_books->id)}}"
                                         @endif
@@ -67,10 +69,20 @@
 
                                 </div>
                                 <div class="Wishlist Tab">
-                                    <button class="wishlist_button">
-                                        <img src="{{asset('img/svg/Vector.svg')}}" alt="wishlistmenu"
-                                             class="wishlistmenu">
-                                    </button>
+                                    <a @if(in_array($found_books->id, $wishlist_check))
+                                           href="{{route('wishlist', $found_books->id)}}"
+                                       @elseif(session('user')==null)
+                                           href="{{route('login')}}"
+                                       @else
+                                           href="{{route('add_wishlist', $found_books->id)}}"
+                                        @endif
+                                    >
+                                        <button class="wishlist_button">
+                                            <img src="{{asset('img/svg/Vector.svg')}}" alt="wishlistmenu"
+                                                 class="wishlistmenu">
+                                        </button>
+                                    </a>
+
                                 </div>
                                 <div class="Availability Tab">
                                     @if($found_books->book_quantity)
@@ -113,9 +125,18 @@
                                 </p>
                                 <h1>{{$found_books->book_price}}₴</h1>
                             </div>
-                            <button class="cart_button">
-                                <img src="{{asset('img/svg/Cart1.svg')}}" alt="cartmenu" class="cartmenu">
-                            </button>
+                            <a @if(in_array($found_books->id, $books_check))
+                                   href="{{route('cart', $found_books->id)}}"
+                               @elseif(session('user')==null)
+                                   href="{{route('login')}}"
+                               @else
+                                   href="{{route('add_cart', $found_books->id)}}"
+                                @endif
+                            >
+                                <button class="cart_button">
+                                    <img src="{{asset('img/svg/Cart1.svg')}}" alt="cartmenu" class="cartmenu">
+                                </button>
+                            </a>
                         </div>
                         <div class="mobile_description">
                             <h1>Опис книги:</h1>

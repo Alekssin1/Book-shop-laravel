@@ -71,13 +71,22 @@
                                     </a>
                                     <div class='second_need'>
 
-                        <span class="name">{{$finded_book->book_name}}<img src="./img/Vector.png"
-                                                                           alt="heart"></span>
+                        <span class="name">{{$finded_book->book_name}}<a
+                                @if(in_array($finded_book->id, $wishlist_check))
+                                    href="{{route('wishlist', $finded_book->id)}}"
+                                @elseif(session('user')==null)
+                                    href="{{route('login')}}"
+                                @else
+                                    href="{{route('add_wishlist', $finded_book->id)}}"
+                                        @endif
+                                ><img src="./img/Vector.png" alt="heart"></a></span>
                                         <span class="author">{{$finded_book->full_name}}</span>
                                         <div class='cartcatalog'>
                                             <span class="price">{{$finded_book->book_price}}₴</span>
                                             <a href="@if(in_array($finded_book->id, $books_check))
                                                    {{route('cart')}}
+                                               @elseif(session('user')==null)
+                                               {{route('login')}}
                                                @else
                                                    {{route('add_cart', $finded_book->id)}}
                                                @endif
@@ -86,6 +95,8 @@
                                             </a>
                                             <a href="@if(in_array($finded_book->id, $books_check))
                                                    {{route('cart')}}
+                                                   @elseif(session('user')==null)
+                                               {{route('login')}}
                                                @else
                                                    {{route('add_cart', $finded_book->id)}}
                                                @endif
